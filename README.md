@@ -15,16 +15,56 @@ The main components in making a skill:
 
 A condensed version of [this tutorial](https://developer.amazon.com/alexa-skills-kit/tutorials/fact-skill-1) for me to review when I forget stuff.
 
-## Step 1: Developer Portal
+## Step 1: Developer Portal (VUI)
 
 [developer.amazon.com](https://developer.amazon.com). Go to/make your skill and you'll be at the screen with the following tabs on the left:
- - Skill Information' ||
-  '
+ - Skill Information
+ - Interaction Model. Here's where you add new __Intents__. 
+ - Configuration
+ - Test
+ - Publishing Information
+ - Privacy & Compliance
+ 
+ ## Step 2: Lambda Functions with AWS
+
+Quick facts to remember:
+- Creating a new function: Click "Create a Lambda function". Choose a blueprint/template file (e.g. alexa-nodejs-template). Configure your trigger -- choose "Alexa Skills Kit". 
+- Copy the ARN from the top right corner of the screen. You'll need it in the next step.
+
+Links: 
+- [Lambda Console Home Page](https://console.aws.amazon.com/lambda/)
+- [AWS Lambda Info](https://aws.amazon.com/lambda/)
+
+## Step 3: Connect VUI to Lambda Function [[Link]](https://developer.amazon.com/alexa-skills-kit/tutorials/fact-skill-3)
+
+Go to the "Configuration" tab of the developer console. Select "AWS Lambda ARN" option for your endpoint. Paste your Lambda's ARN into the textbox (should have from the end of step 2).
+
+## Step 4: Testing your Alexa Skill [[Link]](https://developer.amazon.com/alexa-skills-kit/tutorials/fact-skill-4)
+
+The "Test" tab of the developer console. Here you'll find:
+- Voice simulator.
+- Service Simulator.
+
+## Step 5: Customization [[Link]](https://developer.amazon.com/alexa-skills-kit/tutorials/fact-skill-5)
+
+The scripting part. 
+
+# Interaction Model / Skill Builder
+
+The fancy-looking UI where you add intents and stuff. 
+
+# Intents
+
+You can add sample utterances, which are actually _training data_ for Alexa. 
+
+Links:
+- [Youtube Tutorial -- Using intents, built-ins, and utterances](https://www.youtube.com/watch?v=L7-AlwYJs_k)
+
 
 # My Questions and Answers
 
 
-__How do I know which functions get which parameters?__
+### How do I know which functions get which parameters?
 
 You can actually define these via the "intent" JSON, with things like slots. A simple example from [here](https://github.com/alexa/alexa-cookbook/blob/master/labs/Day-1/3-number-facts%20(Built-in%20Slots)/src/index.js
 ):
@@ -50,10 +90,24 @@ You can actually define these via the "intent" JSON, with things like slots. A s
 
 ```
 
-__How does Alexa handle multiple intent functions?__
+### How does Alexa handle multiple intent functions?
 
 - It looks like intents are activated by the user saying their name? Don't understand why only the "main" intent is emitted from `LaunchRequest`.
 - One way is assigning the `samples` key (within the intent) to an array of allowed utterance samples.
+
+### What SSML Do I Care About?
+
+[speak](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference#speak). Root element of an SSML doc. 
+```
+<speak>
+    This is what Alexa sounds like without any SSML.
+</speak>
+```
+
+[say-as](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference#say-as). Describes how the text should be interpreted. 
+```
+<say-as interpret-as='spell-out'>hello</say-as>
+```
 
 
 # Useful Resources
