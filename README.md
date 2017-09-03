@@ -53,7 +53,7 @@ The scripting part.
 # My Questions and Answers
 
 
-__How do I know which functions get which parameters?__
+### How do I know which functions get which parameters?
 
 You can actually define these via the "intent" JSON, with things like slots. A simple example from [here](https://github.com/alexa/alexa-cookbook/blob/master/labs/Day-1/3-number-facts%20(Built-in%20Slots)/src/index.js
 ):
@@ -79,10 +79,24 @@ You can actually define these via the "intent" JSON, with things like slots. A s
 
 ```
 
-__How does Alexa handle multiple intent functions?__
+### How does Alexa handle multiple intent functions?
 
 - It looks like intents are activated by the user saying their name? Don't understand why only the "main" intent is emitted from `LaunchRequest`.
 - One way is assigning the `samples` key (within the intent) to an array of allowed utterance samples.
+
+### What SSML Do I Care About?
+
+[speak](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference#speak). Root element of an SSML doc. 
+```
+<speak>
+    This is what Alexa sounds like without any SSML.
+</speak>
+```
+
+[say-as](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference#say-as). Describes how the text should be interpreted. 
+```
+<say-as interpret-as='spell-out'>hello</say-as>
+```
 
 
 # Useful Resources
