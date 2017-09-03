@@ -1,29 +1,22 @@
 'use strict';
 var Alexa = require('alexa-sdk');
-
-// Replace with your app ID (OPTIONAL).  
+// Replace with your app ID (OPTIONAL).
 // You can find this value on your skill's page on http://developer.amazon.com
 var APP_ID = "amzn1.ask.skill.015704ae-9f78-4192-a393-c31c5ca96957";
 
 var SKILL_NAME = "Repeat After Me";
-var GET_FACT_MESSAGE = "Okay: ";
 var HELP_MESSAGE = "You are terrible at speaking. Hopeless.";
 var HELP_REPROMPT = "Seriously, do you have a speech disability?";
 var STOP_MESSAGE = "Whatever.";
 
-// TODO: Replace this data with your own.  
-// You can find translations of this data at http://github.com/alexa/skill-sample-node-js-fact/data
+// Array of possible responses from Alexa. Right now, selected at random.
 var data = [
-    'Herp derp, I am a squishy human. That is what you sound like.',
-    'Are you still talking?'
+  'Herp derp, I am a squishy human. That is what you sound like.',
+  'Are you still talking?',
+  'No, you repeat after me.'
 ];
 
-
-// ========================================================
-// Editing anything below this line might break your skill.  
-// ========================================================
-
-/**This is the function that AWS Lambda calls every time 
+/**This is the function that AWS Lambda calls every time
  * Alexa uses the skill.
  * 
  * @param event - 
@@ -45,39 +38,47 @@ var handlers = {
         this.emit('RepeatAfterMeIntent');
     },
 
-    RepeatAfterMeIntent() {
-        var factArr = data;
-        var factIndex = Math.floor(Math.random() * factArr.length);
-        var randomFact = factArr[factIndex];
-        var speechOutput = GET_FACT_MESSAGE + randomFact;
-        this.emit(':tellWithCard', speechOutput, SKILL_NAME, randomFact)
+  /**
+   * This is what happens when the user says the SKILL_NAME.
+   */
+  RepeatAfterMeIntent() {
+        let dataIndex = Math.floor(Math.random() * data.length);
+        // Random entry from the data array.
+        let randomResponse = data[dataIndex];
+        this.emit(':tellWithCard', randomResponse, SKILL_NAME, randomResponse)
     },
 
-	/*  
-	 * Repeat the number given by user.
+	/**
+	 * Repeat the number given by user. To invoke:
+	 *  "Alexa, ask RepeatAfterMe to repeat the number {number}."
 	 * 
 	 * Slots:
-	 * 	- number
-	 *
+   *  number
 	 */
 	RepeatNumberIntent() {
 		let slots = this.event.request.intent.slots;
-		var theNumber = slots.number.value;
+		let theNumber = slots.number.value;
 		this.emit(':tell', `The number is ${theNumber}.`);
 	},
 
-    AMAZON.HelpIntent() {
-        var speechOutput = HELP_MESSAGE;
-        var reprompt = HELP_REPROMPT;
-        this.emit(':ask', speechOutput, reprompt);
-    },
+  SetTimerIntent() {
+	  let slots = this.event.request.intent.slots;
+	  let time = slots.time.value;
+    this.emit(':tell', `No. You set a timer for ${time}. Stupid.`);
+  },
 
-    AMAZON.CancelIntent() {
-        // ':tell' is the main way to just have Alexa say something.
-        this.emit(':tell', STOP_MESSAGE);
-    },
+  'AMAZON.HelpIntent'() {
+      var speechOutput = HELP_MESSAGE;
+      var reprompt = HELP_REPROMPT;
+      this.emit(':ask', speechOutput, reprompt);
+  },
 
-    AMAZON.StopIntent() {
-        this.emit(':tell', STOP_MESSAGE);
-    }
+  'AMAZON.CancelIntent'() {
+      // ':tell' is the main way to just have Alexa say something.
+      this.emit(':tell', STOP_MESSAGE);
+  },
+
+  'AMAZON.StopIntent'() {
+      this.emit(':tell', STOP_MESSAGE);
+  }
 };
