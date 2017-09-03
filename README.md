@@ -11,6 +11,16 @@ The main components in making a skill:
 1. __Voice User Interface (VUI)__: define which code should be exected when specific commands are uttered. Seems to be mainly the _Interaction Model_ tab that matters here.
 2. __Lambda Functions__: the actual code for the skill.
 
+# Fact Skill Tutorial
+
+A condensed version of [this tutorial](https://developer.amazon.com/alexa-skills-kit/tutorials/fact-skill-1) for me to review when I forget stuff.
+
+## Step 1: Developer Portal
+
+[developer.amazon.com](https://developer.amazon.com). Go to/make your skill and you'll be at the screen with the following tabs on the left:
+ - Skill Information' ||
+  '
+
 # My Questions and Answers
 
 
