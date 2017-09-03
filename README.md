@@ -49,6 +49,17 @@ The "Test" tab of the developer console. Here you'll find:
 
 The scripting part. 
 
+# Interaction Model / Skill Builder
+
+The fancy-looking UI where you add intents and stuff. 
+
+# Intents
+
+You can add sample utterances, which are actually _training data_ for Alexa. 
+
+Links:
+- [Youtube Tutorial -- Using intents, built-ins, and utterances](https://www.youtube.com/watch?v=L7-AlwYJs_k)
+
 
 # My Questions and Answers
 
